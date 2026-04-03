@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Essentya - Transformação e Desenvolvimento</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --cream:#F7F0E6;--blush:#D4957A;--terracotta:#B5563A;
+  --wine:#6B2737;--deep:#1A0A0E;--deeper:#0D0508;
+  --gold:#C8973F;--gold-light:#E8C87A;
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--deep);
+  color:var(--cream);
+  font-family:'Jost',sans-serif;
+  overflow-x:hidden;
+}
+
+/* GRAIN */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;opacity:0.4;
+}
+
+/* HERO */
+.hero{
+  min-height:35vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(160deg,var(--wine) 0%,var(--deep) 70%);
+  padding:60px 24px 40px;
+  position:relative;
+}
+.hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(212,149,122,0.12) 0%,transparent 60%);
+  pointer-events:none;
+}
+.hero-content{
+  max-width:600px;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+.hero-eyebrow{
+  font-family:'Cormorant Garamond',serif;
+  font-size:12px;
+  font-weight:300;
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:var(--gold-light);
+  margin-bottom:16px;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,7vw,48px);
+  font-weight:900;
+  line-height:1.1;
+  margin-bottom:12px;
+}
+.hero-subtitle{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;
+  font-weight:300;
+  font-style:italic;
+  color:rgba(247,240,230,0.7);
+  line-height:1.5;
+}
+
+/* PRODUCTS */
+.products-section{
+  padding:40px 16px 60px;
+}
+.products-list{
+  max-width:600px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.product-card{
+  background:rgba(107,39,55,0.15);
+  border:1px solid rgba(200,151,63,0.2);
+  padding:20px 18px;
+  transition:all 0.3s ease;
+  position:relative;
+}
+
+.product-card:hover{
+  background:rgba(107,39,55,0.25);
+  border-color:var(--gold);
+  transform:translateY(-2px);
+}
+
+.product-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  margin-bottom:12px;
+}
+
+.product-title{
+  font-family:'Playfair Display',serif;
+  font-size:18px;
+  font-weight:700;
+  line-height:1.3;
+  flex:1;
+}
+
+.product-price{
+  background:var(--gold);
+  color:var(--deep);
+  padding:6px 12px;
+  font-size:13px;
+  font-weight:600;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+.product-desc{
+  font-size:14px;
+  font-weight:300;
+  line-height:1.6;
+  color:rgba(247,240,230,0.75);
+  margin-bottom:16px;
+}
+
+.btn-comprar{
+  display:block;
+  width:100%;
+  text-align:center;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--blush) 100%);
+  color:var(--deep);
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  text-decoration:none;
+  padding:14px 24px;
+  transition:all 0.3s ease;
+}
+
+.btn-comprar:active{
+  transform:scale(0.98);
+}
+
+/* FOOTER */
+.footer{
+  padding:40px 24px;
+  text-align:center;
+  background:var(--deeper);
+  border-top:1px solid rgba(200,151,63,0.2);
+}
+
+.footer-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:14px;
+  font-style:italic;
+  color:rgba(247,240,230,0.5);
+}
+
+@media(min-width:768px){
+  .products-section{padding:60px 24px 80px;}
+  .product-card{padding:24px 22px;}
+  .product-title{font-size:20px;}
+  .product-desc{font-size:15px;}
+  .btn-comprar{font-size:13px;padding:16px 32px;}
+  .btn-comprar:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(200,151,63,0.3);
+  }
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-eyebrow">ESSENTYA DESENVOLVIMENTO</div>
+    <h1 class="hero-title">Produtos Digitais para sua Transformação</h1>
+    <p class="hero-subtitle">Escolha o programa perfeito para sua jornada</p>
+  </div>
+</section>
+
+<section class="products-section">
+  <div class="products-list">
+
+    <!-- PRODUTO 1 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Academy da Mulher sem Autossabotagem</h3>
+        <div class="product-price">R$ 97,00</div>
+      </div>
+      <p class="product-desc">Se você se encontra paralisada pelo medo de mudanças, se não sente a força necessária para bancar suas escolhas, se necessita abandonar padrões de relacionamentos abusivos ou dependentes — este material é para você.</p>
+      <a href="https://pay.kiwify.com.br/nbUpBls" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 2 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">A Vida que Não é Sua</h3>
+        <div class="product-price">R$ 29,90</div>
+      </div>
+      <p class="product-desc">Você já teve a sensação de que a "hora certa" não chega? Este material chegou para te lembrar de olhar para Si mesma e DESPERTAR.</p>
+      <a href="https://pay.kiwify.com.br/mLnVqJZ" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 3 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Produtividade em Conexão</h3>
+        <div class="product-price">R$ 2,00.800</div>
+      </div>
+      <p class="product-desc">Mentoria com 4 passos: análise de perfil comportamental, grau da inteligência positiva e escopo de 2 produtos digitais.</p>
+      <a href="https://pay.kiwify.com.br/UK5eR10" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 4 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Jornada I.N.T.E.I.R.A. - A Trilha de sua Transformação</h3>
+        <div class="product-price">R$ 3,00.500</div>
+      </div>
+      <p class="product-desc">Não há receita mágica, há um processo evolutivo com 4 etapas que te leva do momento atual até o próximo nível do reconhecimento de quem se é.</p>
+      <a href="https://pay.kiwify.com.br/xyODRlL" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 5 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">A Alquimia - Alinhando Suas Relações</h3>
+        <div class="product-price">R$ 48,00</div>
+      </div>
+      <p class="product-desc">Vivemos no externo o reflexo de nosso interno. A Alquimia te propicia o equilíbrio necessário para relações saudáveis e elevação de sua saúde e bem estar.</p>
+      <a href="https://pay.kiwify.com.br/p4ZYh4j" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 6 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">A Alquimia Fortalecendo Seu Relacionamento</h3>
+        <div class="product-price">R$ 55,60</div>
+      </div>
+      <p class="product-desc">Como o processo alquímico influencia seu alinhamento interno e a forma de se relacionar com você mesma, e com o mundo.</p>
+      <a href="https://pay.kiwify.com.br/r1n4iJ5" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 7 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Lei da Atração x Lei da Assunção</h3>
+        <div class="product-price">R$ 29,00</div>
+      </div>
+      <p class="product-desc">Este não é um material motivacional. Se você está lendo este material é porque provavelmente já percebeu que esforço não é o problema. Você muda pequenas coisas mas em algum ponto a vida parece voltar para o mesmo lugar.</p>
+      <a href="https://pay.kiwify.com.br/mD9pJdm" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 8 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Manual da Mulher Líder de Si Mesma</h3>
+        <div class="product-price">R$ 46,00</div>
+      </div>
+      <p class="product-desc">Um chamado de volta para si mesma. Convite para você assumir o papel principal da sua história e deixar de ser apenas figurante de uma vida que não te representa mais.</p>
+      <a href="https://pay.kiwify.com.br/Ca6tm3o" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 9 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Do Trauma à Cura - A Trilha de Reconstrução</h3>
+        <div class="product-price">R$ 53,00</div>
+      </div>
+      <p class="product-desc">Reconhecer, integrar e ressignificar para prosseguir e transformar culpa em força, reconhecimento como libertação. Você vai percorrer uma trilha de autoconhecimento que empodera e rompe padrões.</p>
+      <a href="https://pay.kiwify.com.br/OCLHEOK" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 10 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Despertando a Riqueza Interna</h3>
+        <div class="product-price">R$ 51,00</div>
+      </div>
+      <p class="product-desc">Prosperidade e riqueza estão ligadas aos ciclos internos que carregamos com nossas crenças e bloqueios. Este material demonstra através de exercícios e abordagem clara, o quanto podemos romper desses padrões internos e ativar todo o potencial guardado dentro de você.</p>
+      <a href="https://pay.kiwify.com.br/cxrADBJ" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 11 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Decifrando Sonhos - I</h3>
+        <div class="product-price">R$ 32,00</div>
+      </div>
+      <p class="product-desc">Buscamos a compreensão dos significados manifestados em nossos sonhos, mas o essencial é ter conhecimento do mecanismo de nosso inconsciente. Este material contém o início de uma abordagem baseada na teoria de C. Jung.</p>
+      <a href="https://pay.kiwify.com.br/32AuxJ3" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 12 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Como Gerenciar Conflitos</h3>
+        <div class="product-price">R$ 41,00</div>
+      </div>
+      <p class="product-desc">Você já sentiu dificuldade de se expressar em meio ao conflito? Ferramenta maravilhosa e silenciosa, mas atuante quando ativada. Estamos falando de suas forças de assinatura - vamos nos aprofundar nelas e identificar o poder que te traz para a resolução de boa parte de seus conflitos.</p>
+      <a href="https://pay.kiwify.com.br/H4TJtPH" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 13 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Manual de Reinvenção 40+</h3>
+        <div class="product-price">R$ 44,00</div>
+      </div>
+      <p class="product-desc">O momento da mudança chega quando você decide transformar sua realidade. A maturidade traz a capacidade de reinvenção, com direção, sentido e propósito. É hora de DESPERTAR.</p>
+      <a href="https://pay.kiwify.com.br/rHU5gEv" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 14 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Transformando Ciclos Viciosos em Virtuosos</h3>
+        <div class="product-price">R$ 38,00</div>
+      </div>
+      <p class="product-desc">Como sair de padrões viciosos que te impedem de crescer e também de vivenciar sua vida com plenitude.</p>
+      <a href="https://pay.kiwify.com.br/6kntzhM" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 15 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Projeto 21 D - Mente Magra Corpo Leve</h3>
+        <div class="product-price">R$ 35,90</div>
+      </div>
+      <p class="product-desc">Programa de 21 dias para transformar sua relação com o corpo e a mente, promovendo leveza e bem-estar.</p>
+      <a href="https://pay.kiwify.com.br/MRH04yx" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 16 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Processo de Desenvolvimento</h3>
+        <div class="product-price">R$ 3,00.500</div>
+      </div>
+      <p class="product-desc">Mentoria e coaching para alinhamento, desenvolvimento e transformação. Processo de Anamnese Emocional mais 5 encontros e uma reavaliação em 30 dias.</p>
+      <a href="https://pay.kiwify.com.br/UccJaLG" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 17 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">A Arte de Vender</h3>
+        <div class="product-price">R$ 44,00</div>
+      </div>
+      <p class="product-desc">A venda se inicia na identificação de objeções e impedimentos inconscientes de quem vende. Vamos esclarecer esta questão e começar a vender?</p>
+      <a href="https://pay.kiwify.com.br/LaBEp8n" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 18 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Anamnese Emocional - Despertando o seu GPS Interno</h3>
+        <div class="product-price">R$ 700,00</div>
+      </div>
+      <p class="product-desc">Sessão única com identificação do que te sabota, medição de sua inteligência positiva, crenças que limitam e forças internas que te movem.</p>
+      <a href="https://pay.kiwify.com.br/VOxDqRT" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 19 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Utilizando o LinkedIn a Seu Favor</h3>
+        <div class="product-price">R$ 51,00</div>
+      </div>
+      <p class="product-desc">Tutorial com perguntas chave que te auxiliará a definir novas rotas de comunicação e que te levará à novas conexões.</p>
+      <a href="https://pay.kiwify.com.br/bngjFVv" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 20 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Transformando Ciclos Viciosos em Virtuosos</h3>
+        <div class="product-price">R$ 55,00</div>
+      </div>
+      <p class="product-desc">Como sair de padrões viciosos que te impedem de crescer e também de vivenciar sua vida com plenitude.</p>
+      <a href="https://pay.kiwify.com.br/uKLx7bU" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 21 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Manual da Equação Emocional</h3>
+        <div class="product-price">R$ 41,00</div>
+      </div>
+      <p class="product-desc">Por que equilibrar as emoções? A compreensão do que devemos eliminar, acrescentar e potencializar para então, dividir, é a chave mestra.</p>
+      <a href="https://pay.kiwify.com.br/ENigNJ8" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 22 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Manual de Reinvenção 40+</h3>
+        <div class="product-price">R$ 55,00</div>
+      </div>
+      <p class="product-desc">Maior equilíbrio, reconhecimento do que te sabota, sua saúde e bem estar e também sua produtividade. Você não está tarde - você está no tempo certo. Basta acreditar nisso!</p>
+      <a href="https://pay.kiwify.com.br/RarrNuI" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 23 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Terapia Speed</h3>
+        <div class="product-price">R$ 1,00.000</div>
+      </div>
+      <p class="product-desc">Processo de 4 passos para transformação de padrões mentais e emocionais. São 4 encontros de 60 min (1/semana) com relatório de anamnese e 2 bônus exclusivos.</p>
+      <a href="https://pay.kiwify.com.br/rHU5gEv" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 24 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Mapa Numerológico Cabalístico</h3>
+        <div class="product-price">R$ 80,00</div>
+      </div>
+      <p class="product-desc">Descubra o significado de seus números, seus talentos, desafios e como criar uma vida com mais propósito. Encaminhe via e-mail seu nome de batismo (com acentuação) e data de nascimento para <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a5d5f494e5b555e555f4f080c7a5d575b535614595557">[email&#160;protected]</a></p>
+      <a href="https://pay.kiwify.com.br/CVP0mfK" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 25 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">O Mapa de Energia Financeira (MEF)</h3>
+        <div class="product-price">R$ 71,00</div>
+      </div>
+      <p class="product-desc">Ferramenta poderosa que revela como você lida com suas finanças, identificando padrões inconscientes, bloqueios e oportunidades de crescimento. Encaminhe via e-mail seu nome de batismo (com acentuação) e data de nascimento para <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="caadafb9beaba5aea5afbff8fc8aada7aba3a6e4a9a5a7">[email&#160;protected]</a></p>
+      <a href="https://pay.kiwify.com.br/Vxna8U4" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 26 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Na Coragem de Reconhecer Quem Você É Está a Sua Força</h3>
+        <div class="product-price">R$ 21,00</div>
+      </div>
+      <p class="product-desc">Quantas vezes você se encontrou em uma encruzilhada diante de uma escolha? Apenas quando olhamos para quem realmente somos e para aquilo que nos trouxe até aqui, é que despertamos nossa verdadeira força.</p>
+      <a href="https://pay.kiwify.com.br/MRH04yx" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 27 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Mapa Cabalístico e Mapa de Energia Financeira</h3>
+        <div class="product-price">R$ 135,00</div>
+      </div>
+      <p class="product-desc">Significado de seus números, seus talentos, desafios e como criar uma vida com mais propósito. Encaminhe via e-mail seu nome de batismo (com acentuação) e data de nascimento para <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e087859394818f848f8595d2d6a0878d81898cce838f8d">[email&#160;protected]</a></p>
+      <a href="https://pay.kiwify.com.br/VOEtdLo" class="btn-comprar">QUERO ESTE PROGRAMA →</a>
+    </div>
+
+    <!-- PRODUTO 28 -->
+    <div class="product-card">
+      <div class="product-header">
+        <h3 class="product-title">Transformando o que Te Limita</h3>
+        <div class="product-price">R$ 21,00</div>
+      </div>
+      <p class="product-desc">Você já pensou ter em suas mãos uma "rota" para identificar crenças que te foram ensinadas ou desenvolvidas a partir do que vive
